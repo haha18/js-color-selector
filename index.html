@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="keywords" content="JavaScript Color Selector, Different Color Scheme, Contrast Ratio">
+  <meta name="description" content="A JavaScript color selector with different color schemes. A list of colors comes out based on your choice of a color, a contrast ratio, and a color scheme (or a hue value). Real effects of how your color and the output-color work together are also included.">
+  <title>JavaScript Color Selector</title>
+  <style>
+    .inputForm {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .colorExample {
+      display: inline-block;
+      margin: .25em .5em;
+      width: 5em;
+    }
+    fieldset {
+      margin: .5em;
+    }
+    .selector {
+      padding: .5em;
+      margin: .5em;
+      width: 10em;
+      background-color: #333;
+      color: white;
+    }
+    a {
+      text-decoration: none;
+      color: navy;
+      display: inline-block;
+      margin: 0 1em;
+      padding: .5em 1em;
+      background-color: #ccc;
+      color: #333;
+      border-radius: .5em;
+    }
+  </style>
+</head>
+<body>
+  <h1>JavaScript Color Selector</h1>
+  <main>
+    <h2>How it works</h2>
+    <ul>
+      <li>Step 1: Enter a hex color string, or select a color, or enter hsl values of a color.</li>
+      <li>Step 2: Select Color Contrast Ratio.</li>
+      <li>Step 3: There are two options. You can choose a color scheme, or enter a hue value directly.</li>
+    </ul>
+  </main>
+  <section>
+    <h2 id="mainForm">Input or Select Your Color</h2>
+    <form action="#" name="colorForm" class="inputForm">
+      <fieldset>
+        <legend>Step 1: Select Color</legend>
+        <div>
+          <label for="yourColor">Enter Your Color:</label>
+          <input type="text" name="yourColor" id="yourColor" value="#ff0000" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" onchange="updateSelectColor();">
+          <label for="selectColor">Select Your Color:</label>
+          <input type="color" name="selectColor" id="selectColor" value="#ff0000" onchange="updateInputColor();">
+        </div>
+        <div>
+          <label for="hue">Hue:</label>
+          <input type="number" name="hue" id="hue" value="0" min="0" max="360" step="10" onchange="updateColorByHsl();">
+          <label for="saturation">Saturation:</label>
+          <input type="number" name="saturation" id="saturation" value="100" min="0" max="100" step="10" onchange="updateColorByHsl();">
+          <label for="lightness">Lightness:</label>
+          <input type="number" name="lightness" id="lightness" value="50" min="0" max="100" step="10" onchange="updateColorByHsl();">
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Step 2: Select Contrast Ratio</legend>
+        <div>
+          <label for="yourContrast">Contrast Ratio:</label>
+          <input type="number" name="yourContrast" id="yourContrast" value="4.5" min="0" max="21" step="0.1">
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Step 3: Option 1 - Choose Color Scheme or Enter Hue Value</legend>
+        <label for="selectScheme">Color Scheme:</label>
+        <select name="selectScheme" id="selectScheme">
+          <optgroup label="Monochromatic Color Schemes">
+            <option value="0">Monochromatic color</option>
+          </optgroup>
+          <optgroup label="Complementary Color Schemes">
+            <option value="180">Complementary color</option>
+          </optgroup>
+          <optgroup label="Analogous Color Schemes">
+            <option value="30">Clockwise: 30 degree</option>
+            <option value="60">Clockwise: 60 degree</option>
+            <option value="-30">Counterclockwise: 30 degree</option>
+            <option value="-60">Counterclockwise: 60 degree</option>
+          </optgroup>
+          <optgroup label="Triadic Color Schemes">
+            <option value="120">Clockwise: 120 degree</option>
+            <option value="-120">Counterclockwise: 120 degree</option>
+          </optgroup>
+          <optgroup label="Compound Color Schemes">
+            <option value="150">Clockwise: 150 degree</option>
+            <option value="-150">Counterclockwise: 150 degree</option>
+            <option value="60">Clockwise: 60 degree</option>
+            <option value="-60">Counterclockwise: 60 degree</option>
+          </optgroup>
+        </select>
+        <input type="button" name="selector2" class="selector" value="Do Selecting" onclick="selectByScheme();">
+      </fieldset>
+      <fieldset>
+        <legend>Step 3: Option 2 - Enter Hue Value</legend>
+        <label for="targetHue">Target Hue (0~350, step 10):</label>
+        <input type="number" name="targetHue" id="targetHue" value="0" min="0" max="350" step="10">
+        <input type="button" name="selector2" class="selector" value="Do Selecting" onclick="selectTargetHue();">
+      </fieldset>
+    </form>
+  </section>
+  <div>
+    <a href="#selectBackgroundColor">Select Background Color</a>
+    <a href="#selectColor1">Select Font Color</a>
+  </div>
+  <section>
+    <h2 id="selectBackgroundColor">Your Color is Font Color <a href="#mainForm">Go Back</a></h2>
+    <div id="outputColors"></div>
+    <h2 id="selectColor1">Your Color is Background Color <a href="#mainForm">Go Back</a></h2>
+    <div id="outputColors1"></div>
+  </section>
+
+  <script src="js-color-selector.js"></script>
+  <script src="main.js"></script>
+
+</body>
+</html>
